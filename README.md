@@ -44,7 +44,7 @@ cd deluge-to-qbittorrent-transfer
 
 ---
 
-## 2️⃣ Create virtual environment
+## 2️⃣ Create Python virtual environment
 
 ```bash
 python3 -m venv venv
@@ -102,20 +102,18 @@ This means torrents will transfer to qBittorrent **after 5 minutes of seeding in
 
 # ▶️ Usage
 
-## Dry run (recommended)
+## Manual run (dry-run first)
 
 ```bash
-python deluge_to_qb.py --dry-run
+./venv/bin/python deluge_to_qb.py --dry-run
 ```
 
 This shows what the script **would do without moving files**.
 
----
-
-## Run the script
+If everything looks correct, run without `--dry-run`:
 
 ```bash
-python deluge_to_qb.py
+./venv/bin/python deluge_to_qb.py
 ```
 
 The script will:
@@ -143,7 +141,7 @@ Add this line:
 * * * * * /home/khokan/deluge-venv/bin/python3 /home/khokan/deluge_to_qb.py >> /home/khokan/deluge_to_qb.log 2>&1
 ```
 
-Now every minute the script will check for newly completed torrents.
+Now the script will check every minute for newly completed torrents.
 
 ---
 
@@ -197,25 +195,21 @@ deluge → qbittorrent
 systemctl status deluged
 ```
 
----
-
 ### Torrent file not found
 
-Check directory:
+Check the directory:
 
 ```
 ~/.config/deluge/state
 ```
 
----
-
 ### Permission error
 
 Ensure the script user has access to:
 
-- Deluge download directory
-- qBittorrent download directory
-- Deluge state directory
+- Deluge download directory  
+- qBittorrent download directory  
+- Deluge state directory  
 
 ---
 
