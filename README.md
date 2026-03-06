@@ -1,62 +1,77 @@
 # 🚀 Deluge → qBittorrent Auto Transfer Script
 
-Automatically transfer torrents from Deluge to qBittorrent after they have seeded for a configurable amount of time.
+Automatically transfer torrents from **Deluge** to **qBittorrent** after they have seeded for a configurable amount of time.
 
 This script connects to both torrent clients, detects completed torrents in Deluge, moves the torrent data to qBittorrent’s download folder, adds the torrent to qBittorrent, and removes it from Deluge.
 
 ---
 
-# Features
+# ✨ Features
 
-- Works with Deluge 2.x
-- Works with qBittorrent 4.x
+- Works with **Deluge 2.x**
+- Works with **qBittorrent 4.x**
 - Automatically transfers seeded torrents
 - Prevents duplicate torrents
 - Moves torrent data instead of copying
-- Safe dry-run mode
-- Easy automation with cron
+- Safe **dry-run mode**
+- Easy automation using **cron**
 
 ---
 
-# Requirements
+# 🧰 Requirements
 
-- Python 3.8+
-- Deluge daemon running with RPC enabled
-- qBittorrent Web UI enabled
+- Python **3.8+**
+- **Deluge daemon** running with RPC enabled
+- **qBittorrent Web UI** enabled
 
 Required Python packages:
 
+```
 deluge-client
 qbittorrent-api
+```
 
 ---
 
-# Installation
+# 📦 Installation
 
-Clone the repository
+## 1️⃣ Clone the repository
 
+```bash
 git clone https://github.com/race-in/deluge-to-qbittorrent-transfer.git
 cd deluge-to-qbittorrent-transfer
-
-Create virtual environment
-
-python3 -m venv venv
-source venv/bin/activate
-
-Install dependencies
-
-pip install deluge-client qbittorrent-api
-
-or
-
-pip install -r requirements.txt
+```
 
 ---
 
-# Configuration
+## 2️⃣ Create virtual environment
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+---
+
+## 3️⃣ Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+or manually:
+
+```bash
+pip install deluge-client qbittorrent-api
+```
+
+---
+
+# ⚙️ Configuration
 
 Edit the variables at the top of the script:
 
+```
 DELUGE_HOST
 DELUGE_PORT
 DELUGE_USERNAME
@@ -73,65 +88,81 @@ QB_PASSWORD
 QB_DOWNLOAD_DIR
 
 SEEDING_MINUTES
+```
 
 Example:
 
+```
 SEEDING_MINUTES = 5
+```
 
-This means torrents will transfer to qBittorrent after 5 minutes of seeding in Deluge.
+This means torrents will transfer to qBittorrent **after 5 minutes of seeding in Deluge**.
 
 ---
 
-# Usage
+# ▶️ Usage
 
-Test first using dry run
+## Dry run (recommended)
 
+```bash
 python deluge_to_qb.py --dry-run
+```
 
-This will show what the script would do without moving files.
+This shows what the script **would do without moving files**.
 
-Run normally
+---
 
+## Run the script
+
+```bash
 python deluge_to_qb.py
+```
 
 The script will:
 
-1. Detect seeded torrents in Deluge
-2. Move torrent data
-3. Add the torrent to qBittorrent
-4. Remove the torrent from Deluge
+1. Detect seeded torrents in Deluge  
+2. Move torrent data  
+3. Add the torrent to qBittorrent  
+4. Remove the torrent from Deluge  
 
 ---
 
-# Automation with Cron
+# 🔄 Automation with Cron
 
-To run the script automatically every minute:
+Run the script automatically every minute.
 
+Open crontab:
+
+```bash
 crontab -e
+```
 
 Add this line:
 
+```bash
 * * * * * /home/khokan/deluge-venv/bin/python3 /home/khokan/deluge_to_qb.py >> /home/khokan/deluge_to_qb.log 2>&1
+```
 
-Now every minute the script will check for newly completed torrents and transfer them.
+Now every minute the script will check for newly completed torrents.
 
 ---
 
-# How the Script Works
+# ⚙️ How the Script Works
 
-1. Connects to Deluge RPC
+1. Connects to **Deluge RPC**
 2. Fetches all torrents
 3. Filters torrents that:
    - Are completed
    - Have seeded longer than configured time
 4. Moves torrent data to qBittorrent directory
-5. Adds torrent to qBittorrent with skip hash check
+5. Adds torrent to qBittorrent with **skip hash check**
 6. Removes torrent from Deluge
 
 ---
 
-# Example Directory Layout
+# 📁 Example Directory Layout
 
+```
 /home/khokan/torrents/
 
 deluge/
@@ -139,52 +170,65 @@ deluge/
 
 qbittorrent/
     torrent_data
+```
 
-After transfer the torrent moves from:
+After transfer:
 
+```
 deluge → qbittorrent
+```
 
 ---
 
-# Notes
+# ⚠️ Notes
 
-- Torrent data is moved, not copied
-- Existing files will not be overwritten
+- Torrent data is **moved**, not copied
+- Existing files will **not be overwritten**
 - Script avoids duplicate torrents
-- Ensure correct file permissions
+- Ensure correct **file permissions**
 
 ---
 
-# Troubleshooting
+# 🛠 Troubleshooting
 
-Connection error
+### Connection error
 
+```bash
 systemctl status deluged
+```
 
-Torrent file not found
+---
 
-Check the directory:
+### Torrent file not found
 
+Check directory:
+
+```
 ~/.config/deluge/state
+```
 
-Permission error
+---
+
+### Permission error
 
 Ensure the script user has access to:
 
-Deluge download directory
-qBittorrent download directory
-Deluge state directory
+- Deluge download directory
+- qBittorrent download directory
+- Deluge state directory
 
 ---
 
-# License
+# 📜 License
 
 MIT License
 
 ---
 
-# Support
+# ⭐ Support
 
-If you find this useful, please consider giving the repository a star on GitHub.
+If you find this useful, please consider giving the repository a ⭐ on GitHub.
 
+```
 https://github.com/race-in/deluge-to-qbittorrent-transfer
+```
